@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+  <title>Test Suite</title>
+</head>
+<body>
+<table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
+<tr><td><b>Test Suite</b></td></tr>
+<tr><td><a href="check-site.html">Site available</a></td></tr>
+<tr><td><a href="sign-out.html">Sign out</a></td></tr>
+<tr><td><a href="sign-up.html">Sign up</a></td></tr>
+<tr><td><a href="unlock.html">Unlock</a></td></tr>
+<tr><td><a href="settings.html">Settings</a></td></tr>
+<tr><td><a href="sign-out-2.html">Sign out</a></td></tr>
+<tr><td><a href="sign-in.html">Sign in</a></td></tr>
+<tr><td><a href="unlock-2.html">Unlock</a></td></tr>
+<tr><td><a href="category.html">Category</a></td></tr>
+<tr><td><a href="add-item.html">Add item</a></td></tr>
+<tr><td><a href="items.html">Items</a></td></tr>
+<tr><td><a href="add-totp-item.html">Add TOTP item</a></td></tr>
+<tr><td><a href="totp-items.html">TOTP items</a></td></tr>
+</tbody></table>
+</body>
+</html>

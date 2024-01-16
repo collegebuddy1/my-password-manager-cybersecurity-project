@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="/favicon.ico" />
+	<title><%= typeof title != 'undefined' ? title : '' %> - My Password Manager</title>
+	<link rel='stylesheet' href='/uikit/css/uikit.almost-flat.min.css' />
+	<link rel='stylesheet' href='/uikit/css/components/tooltip.almost-flat.min.css' />
+	<% if (typeof extraCSS != 'undefined') { %>
+	<% for (var i = 0; i < extraCSS.length; i++) { %>
+	<link rel='stylesheet' href='<%= extraCSS[i] %>' />
+	<% } %>
+	<% } %>
+</head>
+<body>
+	<div class="uk-container uk-container-center uk-margin-top">
+		<nav class="uk-navbar">
+			<% if (user_infos === null) { %>
+			<a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+			<a class="uk-navbar-brand uk-navbar-center uk-visible-small" href="/"><img src="/images/logo.png" alt="My Password Manager"></a>
+			<a class="uk-navbar-brand uk-hidden-small" href="/">My Password Manager</a>
+			<div class="uk-navbar-flip uk-hidden-small">
+				<ul class="uk-navbar-nav">
+					<li>
+						<a href="/user/sign-up"><span class="uk-icon-user-plus"></span> Sign up</a>
+					</li>
+					<li>
+						<a href="/user/sign-in"><span class="uk-icon-sign-in"></span> Sign in</a>
+					</li>
+				</ul>
+			</div>
+			<% } else { %>
+			<a href="#offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+			<a class="uk-navbar-brand uk-navbar-center uk-visible-small" href="/item"><img src="/images/logo.png" alt="My Password Manager"></a>
+			<a class="uk-navbar-brand uk-hidden-small" href="/item">My Password Manager</a>
+			<% if (userIsActive) { %>
+			<ul class="uk-navbar-nav uk-hidden-small">
+				<li><a href="/item/add"><span class="uk-icon-key"></span> Add item</a></li>
+				<li><a href="/totp/add"><span class="uk-icon-clock-o"></span> Add TOTP</a></li>
+			</ul>
+			<% } %>
+			<div class="uk-navbar-flip uk-hidden-small">
+				<ul class="uk-navbar-nav">
+					<li>
+						<a href="/unlock"><span class="uk-icon-lock"></span> Lock</a>
+					</li>
+					<li>
+						<a href="/user/settings/info"><span class="uk-icon-user"></span> <%= user_infos.first_name %></a>
+					</li>
+					<li>
+						<a href="/user/sign-out"><span class="uk-icon-sign-out"></span> Sign out</a>
+					</li>
+				</ul>
+			</div>
+			<% } %>
+		</nav>
+		<div class="uk-margin-large-bottom uk-hidden-small"></div>
+		<div class="uk-margin-bottom uk-visible-small"></div>
+		<% while(message = flash.shift()) { %>
+		<div class="uk-alert uk-alert-<%= message.type  %>" data-uk-alert>
+			<a href="" class="uk-alert-close uk-close"></a>
+			<p><%- message.message  %></p>
+		</div>
+		<% } %>
+		<%- body %>
+	</div>
+	<div id="offcanvas" class="uk-offcanvas">
+		<div class="uk-offcanvas-bar">
+			<ul class="uk-nav uk-nav-offcanvas">
+				<% if (user_infos === null) { %>
+				<li>
+					<a href="/user/sign-up"><span class="uk-icon-user-plus"></span> Sign up</a>
+				</li>
+				<li>
+					<a href="/user/sign-in"><span class="uk-icon-sign-in"></span> Sign in</a>
+				</li>
+				<% } else { %>
+				<li class="uk-nav-header">Items</li>
+				<li><a href="/item/add"><span class="uk-icon-key"></span> Add item</a></li>
+				<li><a href="/totp/add"><span class="uk-icon-clock-o"></span> Add TOTP</a></li>
+				<li class="uk-nav-header">Settings</li>
+				<li>
+					<a href="/unlock"><span class="uk-icon-lock"></span> Lock</a>
+				</li>
+				<li>
+					<a href="/user/settings/info"><span class="uk-icon-user"></span> <%= user_infos.first_name %></a>
+				</li>
+				<li>
+					<a href="/user/sign-out"><span class="uk-icon-sign-out"></span> Sign out</a>
+				</li>
+				<% } %>
+			</ul>
+		</div>
+	</div>
+	<div class="uk-margin-bottom uk-visible-small"></div>
+	<script type='text/javascript' src="/jquery/jquery.min.js"></script>
+	<script type='text/javascript' src="/uikit/js/uikit.min.js"></script>
+	<script type='text/javascript' src="/uikit/js/components/tooltip.min.js"></script>
+	<% if (typeof extraJS != 'undefined') { %>
+	<% for (var i = 0; i < extraJS.length; i++) { %>
+	<script type='text/javascript' src="<%= extraJS[i] %>"></script>
+	<% } %>
+	<% } %>
+</body>
+</html>

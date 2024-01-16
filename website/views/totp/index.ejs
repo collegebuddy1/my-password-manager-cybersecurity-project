@@ -1,0 +1,52 @@
+<div ng-app="mpmApp">
+	<ul class="uk-tab uk-tab-grid uk-margin-bottom">
+		<li class="uk-width-1-2"><a href="/item">Items</a></li>
+		<li class="uk-width-1-2 uk-active"><a href="/totp">TOTP</a></li>
+	</ul>
+	<div ng-controller="ListController as list">
+		<div class="uk-grid uk-margin-bottom" ng-show="list.items.length != 0">
+			<div class="uk-width-medium-2-10"><div id="timer" style="width:150px;height: 150px;margin: auto;"></div></div>
+			<div class="uk-width-medium-8-10">
+				<p>The codes will be updated in <span class="uk-text-bold" id="timeLeft">30</span> seconds. <a href="" ng-click="list.refreshNow()">Click here</a> to refresh now.</p>
+			</div>
+		</div>
+		<div class="">
+			<div class="uk-container-center uk-text-center" ng-show="list.loader">
+				<img src="/images/loader.gif" alt="Loading..." width="128" height="128" />
+			</div>
+			<div class="uk-width-1-1 uk-alert uk-alert-large uk-alert-danger" ng-show="list.error">
+				<h2>An error occured</h2>
+				<p>We can't reach the app, try to fix the problem by checking the following points:</p>
+				<ul>
+					<li>Check your internet connection</li>
+					<li>Check if JavaScript is enabled on your browser</li>
+					<li>Reload the page</li>
+				</ul>
+				<p>If everything is correct on your side, please try later. The issue may be temporary. If the issue persist, contact us.</p>
+			</div>
+			<div class="uk-width-1-1" ng-show="list.items.length == 0 && list.loader == false">
+				<p>There is no item to display.</p>
+			</div>
+			<div class="uk-width-small-1-1 uk-width-medium-1-4" ng-repeat="item in list.items">
+				<div class="uk-panel uk-panel-box uk-panel-box-secondary">
+					<button class="uk-button uk-button-danger uk-float-right uk-button-mini" data-uk-tooltip title="Remove" type="button" ng-click="list.deleteModal(item)"><span class="uk-icon-remove"></span></button>
+					<h3 class="uk-panel-title">{{ item.title }}</h3>
+					<p class="uk-text-center uk-text-large uk-text-bold code_otp" data-id="{{ item._id }}">{{ item.code }}</p>
+				</div>
+			</div>
+		</div>
+		<div id="modalDeleteItem" class="uk-modal">
+			<div class="uk-modal-dialog">
+				<a class="uk-modal-close uk-close"></a>
+				<div class="uk-modal-header">
+					<h3>Delete Item</h3>
+				</div>
+				<p>Are you sure to delete the item?</p>
+				<div class="uk-modal-footer">
+					<button class="uk-button uk-button-danger" ng-click="list.deleteItem()">Delete</button>
+					<button class="uk-button uk-modal-close"> Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

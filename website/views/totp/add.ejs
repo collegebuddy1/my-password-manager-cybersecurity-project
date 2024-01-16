@@ -1,0 +1,14 @@
+<div class="uk-alert uk-alert-large">
+	<h2>TOTP item</h2>
+	<p>TOTP is a two-factor authentication system. TOTP means Timed One-Time-Password, after log in into a website, you must enter a password generated every 30secondes.</p>
+	<p>You can saved here a new TOTP item, and display it on the main page.</p>
+	<p>The <b>secret</b> is the <b>text code</b> generated when you configure the two-factor authentication on the website (i.e Google).</p>
+</div>
+<form action="/totp/add" class="uk-form uk-form-horizontal" method="POST">
+	<%- myForm.toHTML(uikitFieldHorizontal) %>
+	<div class="uk-form-row">
+		<div class="uk-form-controls">
+			<button class="uk-button uk-button-primary" type="submit">Add TOTP item</button>
+		</div>
+	</div>
+</form>

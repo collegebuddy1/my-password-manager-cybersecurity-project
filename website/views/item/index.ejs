@@ -1,0 +1,105 @@
+<div ng-app="mpmApp">
+	<ul class="uk-tab uk-tab-grid uk-margin-bottom">
+	    <li class="uk-width-1-2 uk-active"><a href="/item">Items</a></li>
+	    <li class="uk-width-1-2"><a href="/totp">TOTP</a></li>
+	</ul>
+	<div ng-controller="ListController as list">
+		<div class="uk-grid">
+			<div class="uk-width-medium-2-10 uk-hidden-small">
+				<ul class="uk-tab uk-tab-left">
+					<li ng-repeat="cat in list.categories" class="{{ list.category == cat._id ? 'uk-active' : '' }}">
+						<div class="uk-button-group uk-float-right" ng-show="cat._id != 'all' && list.category == cat._id">
+							<button class="uk-button uk-button-mini" type="button" data-uk-tooltip title="Rename" ng-click="list.renameCategoryModal(cat)"><span class="uk-icon-edit"></span></button>
+							<button class="uk-button uk-button-mini uk-button-danger" type="button" data-uk-tooltip title="Delete" ng-click="list.deleteCategoryModal(cat)"><span class="uk-icon-trash"></span></button>
+						</div>
+						<a href="" data-category="{{ cat._id }}" ng-click="list.changeCategory(cat._id)">{{ cat.title }}</a>
+					</li>
+					<li class="uk-text-center" ng-hide="list.bAddCategory"><a href="" ng-click="list.displayAddCategory()"><span class="uk-icon-plus"></span> Add category</a></li>
+					<li ng-show="list.bAddCategory" class="uk-text-center uk-form tabInputCatgeory">
+						<input type="text" class="uk-width-1-1" ng-model="list.new_category">
+					</li>
+					<li ng-show="list.bAddCategory" class="uk-text-center uk-margin-top">
+						<button class="uk-button uk-button-primary uk-button-small" ng-click="list.addCategory()"><span class="uk-icon-save"></span> Save</button>
+						<button class="uk-button uk-button-small" ng-click="list.cancelAddCategory()"><span class="uk-icon-undo"></span> Cancel</button>
+					</li>
+				</ul>
+			</div>
+			<div class="uk-width-small-1-1 uk-visible-small">
+				<a data-uk-toggle="{target:'#menuCategories', animation:'uk-animation-fade'}">Categories (display/hide)</a>
+				<ul class="uk-subnav uk-subnav-pill uk-margin-small-top" id="menuCategories">
+					<li ng-repeat="cat in list.categories" class="{{ list.category == cat._id ? 'uk-active' : '' }} uk-width-1-1 uk-text-center">
+						<a href="" data-category="{{ cat._id }}" ng-click="list.changeCategory(cat._id)" class="uk-width-1-1">{{ cat.title }}
+							<div class="uk-button-group uk-float-right" ng-show="cat._id != 'all' && list.category == cat._id">
+								<button class="uk-button uk-button-mini" type="button" data-uk-tooltip title="Rename" ng-click="list.renameCategoryModal(cat)"><span class="uk-icon-edit"></span></button>
+								<button class="uk-button uk-button-mini uk-button-danger" type="button" data-uk-tooltip title="Delete" ng-click="list.deleteCategoryModal(cat)"><span class="uk-icon-trash"></span></button>
+							</div>
+						</a>
+					</li>
+					<li class="uk-width-1-1 uk-text-center" ng-hide="list.bAddCategory"><a href="" ng-click="list.displayAddCategory()" class="uk-width-1-1"><span class="uk-icon-plus"></span> Add category</a></li>
+					<li ng-show="list.bAddCategory" class="uk-text-center uk-form tabInputCatgeory">
+						<input type="text" class="uk-width-1-1" ng-model="list.new_category">
+					</li>
+					<li ng-show="list.bAddCategory" class="uk-text-center uk-margin-top">
+						<button class="uk-button uk-button-primary uk-button-small" ng-click="list.addCategory()"><span class="uk-icon-save"></span> Save</button>
+						<button class="uk-button uk-button-small" ng-click="list.cancelAddCategory()"><span class="uk-icon-undo"></span> Cancel</button>
+					</li>
+				</ul>
+				<hr class="uk-visible-small"/>
+			</div>
+			<div class="uk-margin-bottom uk-visible-small"></div>
+			<div class="uk-width-small-1-1 uk-width-medium-8-10">
+				<div class="uk-container-center uk-text-center" ng-show="list.loader">
+					<img src="/images/loader.gif" alt="Loading..." width="128" height="128" />
+				</div>
+				<div class="uk-alert uk-alert-large uk-alert-danger" ng-show="list.error">
+					<h2>An error occured</h2>
+					<p>We can't reach the app, try to fix the problem by checking the following points:</p>
+					<ul>
+						<li>Check your internet connection</li>
+						<li>Check if JavaScript is enabled on your browser</li>
+						<li>Reload the page</li>
+					</ul>
+					<p>If everything is correct on your side, please try later. The issue may be temporary. If the issue persist, contact us.</p>
+				</div>
+				<div class="uk-grid uk-grid-small" ng-show="list.items.length" id="containerItems">
+					<div ng-repeat="item in list.items" class="uk-width-small-1-1 uk-width-medium-1-2 uk-margin-bottom">
+						<mpm-iteminfo item="item" items="list.items" ng-hide="item.toEdit"></mpm-iteminfo>
+						<mpm-itemedit item="item" items="list.items" category="list.category" ng-show="item.toEdit" categories="list.categories"></mpm-itemedit>
+					</div>
+				</div>
+				<div ng-show="list.items.length == 0 && list.loader == false">
+					<p>There is no item to display.</p>
+				</div>
+			</div>
+		</div>
+		<div id="modalRenameCategory" class="uk-modal">
+			<div class="uk-modal-dialog">
+				<a class="uk-modal-close uk-close"></a>
+				<div class="uk-modal-header">
+					<h3>Rename Category</h3>
+				</div>
+				<div class="uk-form">
+					<input type="text" class="uk-width-1-1" ng-model="list.rename_category">
+				</div>
+				<div class="uk-modal-footer">
+					<button class="uk-button uk-button-primary" ng-click="list.renameCategory()">Save</button>
+					<button class="uk-button uk-modal-close"> Cancel</button>
+				</div>
+			</div>
+		</div>
+		<div id="modalDeleteCategory" class="uk-modal">
+			<div class="uk-modal-dialog">
+				<a class="uk-modal-close uk-close"></a>
+				<div class="uk-modal-header">
+					<h3>Delete Category</h3>
+				</div>
+				<p>Are you sure to delete the category?</p>
+				<p>All the items will be keeped.</p>
+				<div class="uk-modal-footer">
+					<button class="uk-button uk-button-danger" ng-click="list.deleteCategory()">Delete</button>
+					<button class="uk-button uk-modal-close"> Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

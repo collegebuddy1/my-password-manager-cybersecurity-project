@@ -1,0 +1,55 @@
+<form action="/item/add" class="uk-form uk-form-horizontal" method="POST">
+	<%- myForm.toHTML(uikitFieldHorizontal) %>
+	<div class="uk-form-row">
+		<div class="uk-form-controls">
+			<button class="uk-button uk-button-primary" type="submit">Add item</button>
+		</div>
+	</div>
+</form>
+<div class="uk-modal" id="modalGeneratePwd">
+	<div class="uk-modal-dialog">
+		<div class="uk-modal-header">
+			<h2>Password generator</h2>
+		</div>
+		<form action="/" class="uk-form uk-form-horizontal" method="GET" id="formPwgGen">
+			<input type="text" class="uk-width-1-1" id="pwdGen_pwd">
+			<div id="passwordStrength" class="uk-progress uk-progress-mini uk-progress-danger" data-current-class="uk-progress-danger" data-uk-tooltip title="Very weak">
+				<div class="uk-progress-bar" id="passwordStrengthBar" style="width:0%"></div>
+			</div>
+			<div class="uk-form-row">
+				<label class="uk-form-label" for="pwdGen_length">Length</label>
+				<div class="uk-form-controls">
+					<input type="range" max="70" min="5" value="10" id="pwdGen_length"> <span id="pwdGen_length_display">10</span>
+				</div>
+			</div>
+			<div class="uk-form-row">
+				<label class="uk-form-label" for="pwdGen_numbers">Numbers</label>
+				<div class="uk-form-controls">
+					<input type="checkbox" id="pwdGen_numbers" checked="checked"> (0, 1, 2, etc.)
+				</div>
+			</div>
+			<div class="uk-form-row">
+				<label class="uk-form-label" for="pwdGen_lowercase">Lowercase</label>
+				<div class="uk-form-controls">
+					<input type="checkbox" id="pwdGen_lowercase" checked="checked"> (a, b, c, etc.)
+				</div>
+			</div>
+			<div class="uk-form-row">
+				<label class="uk-form-label" for="pwdGen_uppercase">Uppercase</label>
+				<div class="uk-form-controls">
+					<input type="checkbox" id="pwdGen_uppercase" checked="checked"> (A, B, C, etc.)
+				</div>
+			</div>
+			<div class="uk-form-row">
+				<label class="uk-form-label" for="pwdGen_specials">Specials</label>
+				<div class="uk-form-controls">
+					<input type="checkbox" id="pwdGen_specials" checked="checked"> (!, @, #, $, etc.)
+				</div>
+			</div>
+		</form>
+		<div class="uk-modal-footer">
+			<button class="uk-button" id="btnNewPwd"><span class="uk-icon-refresh"></span> Regenerate</button>
+			<button class="uk-button uk-button-primary" id="btnUsePwd"><span class="uk-icon-bullseye"></span> Use</button>
+		</div>
+	</div>
+</div>

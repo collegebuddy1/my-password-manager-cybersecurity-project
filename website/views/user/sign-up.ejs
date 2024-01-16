@@ -1,0 +1,37 @@
+<div class="uk-grid">
+	<div class="uk-width-large-1-3">
+		<div class="uk-panel uk-panel-box uk-panel-box-primary">
+			<h3 class="uk-panel-title">Step 1</h3>
+			<p>Create your account.</p>
+		</div>
+	</div>
+	<div class="uk-width-large-1-3">
+		<div class="uk-panel uk-panel-box">
+			<h3 class="uk-panel-title">Step 2</h3>
+			<p>Configure your main password.</p>
+		</div>
+	</div>
+	<div class="uk-width-large-1-3">
+		<div class="uk-panel uk-panel-box">
+			<h3 class="uk-panel-title">Step 3</h3>
+			<p>Welcome!</p>
+		</div>
+	</div>
+</div>
+<p>The creation of an account is free! By having an account, you can have access to all your passwords at one place everywhere in the world.</p>
+<p>You must fill all the fields in the differents forms to complete your registration.</p>
+<p>There is 3 steps to sign up :</p>
+<ul>
+	<li>Step 1: the creation of the account, we need some information about you if there is any trouble in the future</li>
+	<li>Step 2: the creation of your main password. This password can show/display passwords that you entered by (de)crypting them.</li>
+	<li>Step 3: that's all! We will present you how to use this website.</li>
+</ul>
+
+<form action="/user/sign-up" class="uk-form uk-form-horizontal" method="POST">
+	<%- myForm.toHTML(uikitFieldHorizontal) %>
+	<div class="uk-form-row">
+        <div class="uk-form-controls">
+        	<button class="uk-button uk-button-primary" type="submit">Create your account</button>
+        </div>
+    </div>
+</form>
